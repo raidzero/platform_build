@@ -99,9 +99,13 @@ fi
 
 mv $DEVICE_DIR/device.mk $DEVICE_DIR/device_$DEVICE.mk
 
+#remove the size restrictions on the partitions - just go with it
+sed -i '/^BOARD_.*_PARTITION_SIZE/d' $DEVICE_DIR/BoardConfig.mk
+
+#add a lunch combo for the new device setup.
+echo "add_lunch_combo full_$DEVICE-eng" > $DEVICE_DIR/vendorsetup.sh
+
 
 echo Done!
 echo Use the following command to set up your build environment:
 echo '  'lunch full_$DEVICE-eng
-echo And use the follwowing command to build a recovery:
-echo '  '. build/tools/device/makerecoveries.sh full_$DEVICE-eng
