@@ -16,7 +16,7 @@ function usage
 MANUFACTURER=$1
 DEVICE=$2
 BOOTIMAGE=$3
-
+HTCOVERLAY=$4
 UNPACKBOOTIMG=$(which unpackbootimg)
 
 if [ -z "$MANUFACTURER" ]
@@ -105,6 +105,14 @@ sed -i '/^BOARD_.*_PARTITION_SIZE/d' $DEVICE_DIR/BoardConfig.mk
 #add a lunch combo for the new device setup.
 echo "add_lunch_combo full_$DEVICE-eng" > $DEVICE_DIR/vendorsetup.sh
 
+#add an import for htc-overlay if asked
+if [ ! -z "$HTCOVERLAY" ]; then
+  echo "Adding HTC OVERLAY to BoardConfig.mk..."
+  echo " " >> $DEVICE_DIR/BoardConfig.mk
+  echo " " >> $DEVICE_DIR/BoardConfig.mk
+  echo "#import HTC OVERLAY" >> $DEVICE_DIR/BoardConfig.mk
+  echo "-include device/raidzero/htc-overlay/BoardConfig.mk" >> $DEVICE_DIR/BoardConfig.mk
+fi
 
 echo Done!
 echo Use the following command to set up your build environment:
