@@ -102,6 +102,9 @@ mv $DEVICE_DIR/device.mk $DEVICE_DIR/device_$DEVICE.mk
 #remove the size restrictions on the partitions - just go with it
 sed -i '/^BOARD_.*_PARTITION_SIZE/d' $DEVICE_DIR/BoardConfig.mk
 
+#add a variable to invert volume keys on devices
+echo "#BOARD_HAS_INVERTED_VOLUME := true" >> $DEVICE_DIR/BoardConfig.mk
+
 #add a lunch combo for the new device setup.
 echo "add_lunch_combo full_$DEVICE-eng" > $DEVICE_DIR/vendorsetup.sh
 

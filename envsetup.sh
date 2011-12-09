@@ -459,6 +459,15 @@ function print_lunch_menu()
     echo
 }
 
+
+function buildrecovery()
+{
+  DEVICE=`echo $TARGET_PRODUCT | cut -d '_' -f2`
+  rm -rf out/target/product/$DEVICE/recovery* 
+  rm -rf out/target/product/$DEVICE/obj/RECOVERY_EXECUTABLES
+  make -j8 out/target/product/$DEVICE/recovery.img
+}
+
 function lunch()
 {
     local answer
